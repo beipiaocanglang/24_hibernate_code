@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	1、在实体类所在的包下创建一个配置文件(名称：hibernate.hbm.xml的配置文件)
+	2、导入约束
+		位置：/org/hibernate/hibernate-mapping-3.0.dtd
+		本地jar位置：hibernate-core-5.0.7.Final\org\hibernate\hibernate-mapping-3.0.dtd
+	明确：
+		映射中指定类中的属性都是针对的set方法后面的部分。
+ -->
+ <!DOCTYPE hibernate-mapping PUBLIC	
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping >
+	<!--
+		对应实体类的方法：2中
+		 第一种方式 ：
+		 	在class标签的name属性中定义实体类的全类名
+		第二种方式：
+			在根标签hibernat-mapping标签的package属性中定义实体类的包名
+	-->
+	<class name="study.javaProject.domain.Student" table="student" >
+		<!-- 类中的字段和表中的列的对应关系 -->
+		<!-- 主键的映射 -->
+		<id name="id" column="id">
+			<!-- 
+				主键的生成策略：
+					native：
+						它指的是使用本地数据自己的自动增长能力
+						（如果数据库之中字段自增长，那就是用字段自增长。
+						    如果数据库支持的是序列自增长，那就是用序列自增长。）
+					increment:
+						有hibernate自己维护主键的自增长。需要先查询一次最大的id。
+					identity:
+						使用的是本地数据库的字段自增长能力
+					sequence:
+						使用的是本地数据库的序列自增长能力
+					assigned：
+						使用手动指定的方式。(主键有一定的生成规则时，使用此值)
+					hilo:
+						高地位算法
+			-->
+			<generator class="native"></generator>
+		</id>
+		<!-- 
+			其他字段映射 
+				指定访问的方式是通过字段访问：在property标签上使用access="field"
+				在get/set方法的后半部分和字段名不一致时可以使用
+				column不写的情况下默认和name取值一样
+			insert属性：用于动态生成SQL语句，该属性取值是true和false。默认值是true。
+				true：会插入该字段数据。
+				false：永远不会插入该字段数据。
+			update属性：用于动态生成SQL语句，该属性取值true和false。默认值是true。
+				true：会更新字段信息。
+				false：永远不会更新该字段信息
+		-->
+		<property name="name" column="name"></property>
+		<property name="gender" column="gender"></property>
+		<property name="birthday" column="birthday"></property>
+	</class>
+</hibernate-mapping>
+ 

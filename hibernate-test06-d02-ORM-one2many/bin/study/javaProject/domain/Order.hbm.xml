@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC	
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping >
+	<class name="study.javaProject.domain.Order" table="T_ORDERS">
+		<id name="id" column="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="ordernum" column="ORDERNUM"></property>
+		<property name="money" column="MONEY"></property>
+		
+		<!-- 多对一关系映射 
+			使用的元素：many-to-one
+			属性：
+				name：指定的是在实体类中要映射的属性
+				class：指定该属性所对应的类
+				column：指定外键字段。
+		-->	
+		<many-to-one name="customer" class="study.javaProject.domain.Customer" column="CUSTOMER_ID" cascade="save-update"></many-to-one>
+	</class>
+</hibernate-mapping>
+ 

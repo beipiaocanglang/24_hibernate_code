@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC	
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping >
+	<!-- 
+	create table t_students(
+		id int primary key auto_increment,
+		name varchar(100),
+		gender varchar(10)
+	);
+	create table t_teachers(
+		id int primary key auto_increment,
+		name varchar(100),
+		salary float(7,2)
+	);
+	create table t_teacher_student_ref(
+		teacher_id int,
+		student_id int,
+		primary key(teacher_id,student_id),
+		constraint FK_TEACHER_ID foreign key (teacher_id) references t_teachers(id),
+		constraint FK_STUDENT_ID foreign key (student_id) references t_students(id)
+	);
+	 -->
+	
+	<class name="study.javaProject.domain.Student" table="student" >
+		<id name="id" column="id">
+			<generator class="native"></generator>
+		</id>
+		<!-- 其他字段映射  -->
+		<property name="name" column="name"></property>
+		<property name="gender" column="gender"></property>
+		
+		<set name="teachers" table="t_teacher_student_ref" cascade="save-update" inverse="true">
+			<key column="student_id"/>
+			<many-to-many class="study.javaProject.domain.Teacher" column="teacher_id" />
+		</set>
+		
+	</class>
+</hibernate-mapping>
+ 

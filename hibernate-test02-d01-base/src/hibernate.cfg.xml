@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	1、导入必要的jar包。
+	2、在类的根路径下，创建一个hibernate.cfg.xml的配置文件。该配置文件是Hibernate的主配置文件。
+	3、导入dtd约束
+		约束的位置：hibernate的核心jar包中 hibernate-configuration-3.0.dtd
+		本地jar位置：\hibernate-core-5.0.7.Final\org\hibernate\hibernate-configuration-3.0.dtd(第10行)
+ -->
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hibernate_d01_environment</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">root</property>
+		<!-- 配置数据库方言(不同的数据库有不同的方言也在hibernate.properties(58行)核心配置文件中) -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property><!-- 配置数据库方言 -->
+		<!-- 2、hibernate的基本配置-->
+		<property name="hibernate.show_sql">true</property><!-- 显示SQL语句 -->
+		<property name="hibernate.format_sql">true</property><!-- 格式化SQL语句 -->
+		<!-- 在加载配置文件或者运行main函数时采用何种方式生产DDL语句
+			#hibernate.hbm2ddl.auto create-drop	 创建表结构，每次执行完都删除。
+			#hibernate.hbm2ddl.auto create		创建表结构，每次执行都重新创建
+			#hibernate.hbm2ddl.auto update		创建表结构在第一此执行，之后的每次执行都检查表结构是否有变化，有变化就更新(学习阶段使用此值)
+			#hibernate.hbm2ddl.auto validate	验证表结构是否有变化，有变化就改变
+			实际开发中可能会选择隐藏选项：none 什么都不做。
+			DDL是数据定义语言：在hibernate中，它不能创建库。必须由我们自己先创建数据库。
+		-->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<mapping resource="study/javaProject/domain/Customer.hbm.xml"/>
+	</session-factory>
+</hibernate-configuration>	
+
+	
+	
+	

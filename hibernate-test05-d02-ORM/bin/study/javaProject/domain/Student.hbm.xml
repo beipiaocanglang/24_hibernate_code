@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC	
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping >
+	<!-- 对应实体类 -->
+	<class name="study.javaProject.domain.Student" table="student" select-before-update="true" >
+		<!-- 类中的字段和表中的列的对应关系 -->
+		<!-- 主键的映射 -->
+		<id name="id" column="id">
+			<!--  主键的生成策略： -->
+			<generator class="native"></generator>
+		</id>
+		<!-- 其他字段映射  -->
+		<property name="name" column="name"></property>
+		<property name="gender" column="gender"></property>
+		<property name="birthday" column="birthday"></property>
+	</class>
+</hibernate-mapping>
+ 

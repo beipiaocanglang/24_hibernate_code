@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<!-- 配置session工厂创建时所必须的条件 -->
+	<session-factory>
+		<!-- 1、数据库连接的基本信息-->
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hibernate_orm</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">root</property>
+		<!-- 配置数据库方言(不同的数据库有不同的方言也在hibernate.properties(58行)核心配置文件中) -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property><!-- 配置数据库方言 -->
+		<!-- 2、hibernate的基本配置-->
+		<property name="hibernate.show_sql">true</property><!-- 显示SQL语句 -->
+		<property name="hibernate.format_sql">false</property><!-- 格式化SQL语句 -->
+		<!-- 在加载配置文件或者运行main函数时采用何种方式生产DDL语句 -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<!-- 3、指定映射文件 -->
+		<mapping resource="study/javaProject/domain/Customer.hbm.xml"/>
+		<mapping resource="study/javaProject/domain/Order.hbm.xml"/>
+	</session-factory>
+</hibernate-configuration>	

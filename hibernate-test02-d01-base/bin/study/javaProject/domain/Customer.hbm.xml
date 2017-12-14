@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE hibernate-mapping PUBLIC	
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="study.javaProject.domain">
+	<!-- 类和表的对应关系 
+		属性：
+			dynamic-insert：动态生成SQL语句，生成的规则是，永远不涉及为null的字段。
+						 	取值true/false。默认值false。当改为true时，按照上述规则生成。
+			dynamic-update：动态生成SQL语句，生成规则是，永远不涉及不变的字段。(修改前和修改后数据一样的，不会被涉及)
+							取值true/false。默认值false。当改为true时，按照上述规则生成。
+		例如：
+			<class name="Customer" table="customer"  dynamic-insert="true" dynamic-update="true">
+	-->
+	<class name="Customer" table="customer">
+		<id name="id" column="id">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="name" column="name"></property>
+		<!-- 映射totalPrice，它是一个派生属性。不是表中本身的字段信息 
+			formula：用于映射派生属性
+				必须以括号开头
+				括号内中 需要使用别名的地方，要自己指定
+		-->
+		<property name="totalPrice" formula="(select sum(o.price) from orders o where o.customer_id = id)"></property>
+	</class>
+</hibernate-mapping>
+ 

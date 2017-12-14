@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping >
+	<class name="study.javaProject.domain.Customer" table="T_CUSTOMERS">
+		<id name="id" column="id">
+			<generator class="native"></generator>
+		</id>
+		<!-- 第二种解决丢失更新的方案：乐观锁 -->
+		<version name="version"></version>
+		
+		<property name="name" column="NAME"></property>
+		<property name="age" column="AGE"></property>
+		<!-- 一对多关系映射： 
+			set元素：
+				作用：映射集合元素
+				属性：
+					name：映射实体类中的集合属性
+					table：指定对应的表
+			key元素：它是set的子元素
+				作用：就是用于指定外键的
+				属性：
+					column：指定外键字段的名称
+			one-to-many元素：它是set的子元素
+				作用：描述当前实体映射文件和set中指定属性之间的关系。
+				属性：
+					class:指定是从表的实体类名称	
+					cascade:级联操作
+						取值：	
+							save-update：级联保存更新
+							delete-Orphan：孤儿删除
+							delete：级联删除
+							注意：取值可以写多个
+							例如：cascade="save-update,delete-orphan,delete"
+					inverse:是否放弃维护关系(true:放弃、false：不放弃)	
+		-->
+		<set name="orders" table="T_ORDERS" cascade="save-update,delete" inverse="true" >
+			<key column="CUSTOMER_ID"></key>
+			<one-to-many class="study.javaProject.domain.Order"/>
+		</set>
+	</class>
+	<!-- 命名查询的配置 -->
+	<query name="findCustomerByCondition">
+		<!-- CDTA区的目的是将运算符转换(例如：小于号) -->
+		<![CDATA[
+			from Customer where age >= :age and name=:name
+		]]>	
+	</query>
+</hibernate-mapping>
